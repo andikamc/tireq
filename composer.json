@@ -2,6 +2,8 @@
 {
     "name": "andikamc/tireq",
     "description": "Simplify cURL Request for PHP",
+	"keywords": ["package", "rest", "curl", "api"],
+	"homepage": "https://andikamc.me/",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,7 +12,11 @@
             "email": "andkmc99@gmail.com"
         }
     ],
+	"support": {
+		"email": "andkmc99@gmail.com"
+	},
     "require": {
+		"php": ">=5.6",
         "ext-curl": "*"
     },
     "autoload": {
