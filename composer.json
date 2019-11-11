@@ -22,7 +22,7 @@
     "autoload": {
         "psr-4": {
             "AndikaMC\\TiReq\\": "src/",
-            "AndikaMC\\TiReq\\Exceptions": "src/Exceptions"
+            "AndikaMC\\TiReq\\Exceptions": "src/Exceptions/"
         }
     },
     "extra": {
