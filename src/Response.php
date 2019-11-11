@@ -1,7 +1,7 @@
 <?php
 namespace AndikaMC\TiReq;
 
-use Exceptions\TiReqException;
+use AndikaMC\TiReq\Exceptions\TiReqException;
 
 /**
  * Description

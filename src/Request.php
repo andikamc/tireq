@@ -1,7 +1,7 @@
 <?php
 namespace AndikaMC\TiReq;
 
-use Exceptions\TiReqInvalidArgumentException;
+use AndikaMC\TiReq\Exceptions\TiReqInvalidArgumentException;
 
 /**
  * Description
