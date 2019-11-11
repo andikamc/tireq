@@ -49,6 +49,19 @@ class Response
 	}
 
 	/**
+	 * [GetResponseHttpCode description]
+	 */
+	public function GetResponseHttpCode()
+	{
+		$code = preg_replace_callback("/HTTP\/\d\.\d\s(\d{3})/", function($match){
+			return $match[1];
+		}, $this->header);
+		$code = explode("\r\n", $code);
+
+		return trim(@$code[0]);
+	}
+
+	/**
 	 * [GetResponseItems description]
 	 */
 	public function GetResponseItems()
