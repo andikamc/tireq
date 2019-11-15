@@ -109,7 +109,11 @@ class Request
 	public function MakeRequest(string $method, string $url, $data = [])
 	{
 		$this->SetMethod($method);
-		$this->ParseBodyData($data);
+
+		if (strtoupper($method) !== "GET")
+		{
+			$this->ParseBodyData($data);
+		}
 
 		$headers = [];
 		foreach ($this->header as $header => $value)
@@ -119,16 +123,28 @@ class Request
 
 		$this->SetOption("FRESH_CONNECT", true);
 		$this->SetOption("HTTPHEADER", $headers);
-		$this->SetOption("URL", $this->base_uri.$url);
+		
 		$this->SetOption("HEADER", true);
 		$this->SetOption("RETURNTRANSFER", true);
 		$this->SetOption("USERAGENT", $this->user_agent);
 		$this->SetOption("COOKIEJAR", $this->cookie);
 		$this->SetOption("COOKIEFILE", $this->cookie);
 
-		if (!empty($this->body_data))
+		if (strtoupper($method) !== "GET")
 		{
-			$this->SetOption("POSTFIELDS", $this->body_data);
+			$this->SetOption("URL", $this->base_uri.$url);
+			if (!empty($this->body_data))
+			{
+				$this->SetOption("POSTFIELDS", $this->body_data);
+			}	
+		} else {
+			if (substr($this->base_uri.$url, (strlen($this->base_uri.$url) - 1), strlen($this->base_uri.$url)) == "?")
+			{
+				$this->SetOption("URL", substr($this->base_uri.$url, 0, (strlen($this->base_uri.$url) - 1))."?".http_build_query($data));
+			} else {
+				$this->SetOption("URL", $this->base_uri.$url."?".http_build_query($data));
+			}
+			
 		}
 
 		$this->response = new Response($this->option);
