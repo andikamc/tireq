@@ -12,7 +12,7 @@ use AndikaMC\TiReq\Exceptions\TiReqException;
  */
 class Response
 {
-	private $curl,
+	protected $curl,
 			$raw,
 			$header_size,
 			$header = "NULL",
@@ -30,6 +30,8 @@ class Response
 		$this->header = substr($this->raw, 0, $this->header_size);
 		$this->body   = substr($this->raw, $this->header_size);
 		curl_close($this->curl);
+
+		return $this;
 	}
 
 	/**
@@ -46,19 +48,6 @@ class Response
 	public function GetResponseHead()
 	{
 		return $this->header;
-	}
-
-	/**
-	 * [GetResponseHttpCode description]
-	 */
-	public function GetResponseHttpCode()
-	{
-		$code = preg_replace_callback("/HTTP\/\d\.\d\s(\d{3})/", function($match){
-			return $match[1];
-		}, $this->header);
-		$code = explode("\r\n", $code);
-
-		return trim(@$code[0]);
 	}
 
 	/**
