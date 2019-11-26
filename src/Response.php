@@ -14,6 +14,7 @@ class Response
 {
 	protected $curl,
 			$raw,
+			$http_code,
 			$header_size,
 			$header = "NULL",
 			$body;
@@ -26,6 +27,8 @@ class Response
 		{
 			throw new TiReqException(curl_error($this->curl));
 		}
+
+		$this->http_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 		$this->header_size = curl_getinfo($this->curl, CURLINFO_HEADER_SIZE);
 		$this->header = substr($this->raw, 0, $this->header_size);
 		$this->body   = substr($this->raw, $this->header_size);
@@ -98,6 +101,14 @@ class Response
 	public function GetResponseBodyLength()
 	{
 		return strlen($this->body);
+	}
+
+	/**
+	 * 
+	 */
+	public function GetResponseHttpCode()
+	{
+		return $this->http_code;
 	}
 
 }
