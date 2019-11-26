@@ -142,7 +142,14 @@ class Request
 			{
 				$this->SetOption("URL", substr($this->base_uri.$url, 0, (strlen($this->base_uri.$url) - 1))."?".http_build_query($data));
 			} else {
-				$this->SetOption("URL", $this->base_uri.$url."?".http_build_query($data));
+				if (Request::IsJSON($data))
+				{
+					$this->SetOption("URL", $this->base_uri.$url."?".http_build_query(json_decode($data, true)));
+				}
+				else
+				{
+					$this->SetOption("URL", $this->base_uri.$url."?".http_build_query($data));
+				}
 			}
 			
 		}
